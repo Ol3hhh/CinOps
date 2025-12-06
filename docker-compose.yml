@@ -7,17 +7,20 @@ services:
       - "5000:5000"
     depends_on:
       - postgres
+    env_file:
+      - .env
     networks:
       - cinops_network
 
   postgres:
     image: postgres:15
+    container_name: db_cinops
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: cinops
     ports:
-      - "5001:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql

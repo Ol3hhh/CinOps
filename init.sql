@@ -89,3 +89,20 @@ CREATE TABLE Order_Item (
     quantity INT NOT NULL,
     unit_price DECIMAL(10, 2) NOT NULL 
 );
+
+
+
+
+INSERT INTO App_User (first_name, last_name, email, password_hash, role) 
+VALUES ('Jan', 'Testowy', 'jan@test.pl', 'haslo123', 'Client');
+
+INSERT INTO Genre (name) VALUES ('Sci-Fi'), ('Drama');
+INSERT INTO Movie (title, duration_minutes, description) 
+VALUES ('Incepcja', 148, 'Sen w śnie'), ('Matrix', 136, 'Wybierz pigułkę');
+
+INSERT INTO Room (name, total_rows, seats_per_row) VALUES ('Sala A', 10, 10);
+
+INSERT INTO Screening (movie_id, room_id, start_time, price) 
+VALUES (1, 1, NOW() + INTERVAL '1 day', 25.00);
+
+INSERT INTO Product (name, price) VALUES ('Popcorn M', 15.00), ('Cola 0.5', 9.00), ('Nachos', 22.00);
