@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request
 from backend import app
 
-
 @app.route("/")
 def main():
     return "<h1>Hello</h1>"
