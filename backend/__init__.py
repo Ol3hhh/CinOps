@@ -4,6 +4,7 @@ from backend.routes.auth import auth_bp
 from backend.routes.movies import movies_bp
 from backend.routes.orders import orders_bp
 from backend.routes.reports import reports_bp
+from backend.routes.reservations import reservations_bp
 
 def create_app():
     app = Flask(__name__)
@@ -13,5 +14,8 @@ def create_app():
     app.register_blueprint(movies_bp)
     app.register_blueprint(orders_bp)
     app.register_blueprint(reports_bp)
+    app.register_blueprint(reservations_bp)
+
+
 
     return app

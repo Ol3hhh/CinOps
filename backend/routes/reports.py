@@ -35,3 +35,39 @@ def get_top_films():
     cur.close()
     conn.close()
     return jsonify(results), 200
+
+@reports_bp.route("/api/reports/expired-reservations", methods=["GET"])
+def get_expired_reservations():
+    """
+    Zapytanie 2: Rezerwacje przeterminowane (nieopłacone).
+    Wyszukuje bilety ze statusem 'reserved', których czas ważności minął.
+    """
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        
+        # Logika: status = 'reserved' AND expiration_time < NOW()
+        # Wyciągamy też o ile minut przekroczono czas (dla celów informacyjnych)
+        query = """
+            SELECT 
+                t.id AS ticket_id, 
+                u.email, 
+                t.screening_id, 
+                t.reservation_date, 
+                t.expiration_time,
+                EXTRACT(EPOCH FROM (NOW() - t.expiration_time))/60 AS minutes_overdue
+            FROM Ticket t
+            JOIN App_User u ON t.user_id = u.id
+            WHERE t.status = 'reserved'
+              AND t.expiration_time < NOW()
+        """
+        
+        cur.execute(query)
+        expired_tickets = cur.fetchall()
+        
+        return jsonify(expired_tickets), 200
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        conn.close()
