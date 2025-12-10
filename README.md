@@ -39,20 +39,20 @@ Aplikacja wystartuje pod adresem: http://localhost:5000.
 
 Baza danych jest automatycznie zasilana przy pierwszym starcie skryptem init.sql, który tworzy:
 
-- \*\*Strukturę tabel (zgodną z diagramem ERD).
-- \*\*Przykładowe dane (Filmy: "Diuna", Sala A).
-- \*\*Automatycznie generuje 100 miejsc w sali.
+- Strukturę tabel (zgodną z diagramem ERD).
+- Przykładowe dane (Filmy: "Diuna", Sala A).
+- Automatycznie generuje 100 miejsc w sali.
 
 ### 3. Dokumentacja API
 
 Aplikacja realizuje 3 główne transakcje biznesowe oraz zaawansowane raportowanie.
 
-- \*\*POST/api/register Rejestracja nowego klienta
-- \*\*POST/api/login Logowanie (zwraca user_id i rolę)
-- \*\*GET/api/films Pobiera listę dostępnych filmów
-- \*\*POST/api/reservations Transakcja A: Rezerwacja. Sprawdza dostępność i blokuje miejsce.
-- \*\*POST/api/payments Transakcja B: Płatność. Używa FOR UPDATE do zmiany statusu.
-- \*\*POST/api/orders Transakcja C: Zamówienie barowe przypisane do seansu.WB.03
-- \*\*GET/api/reports/top-films Ranking finansowy filmów
-- \*\*GET/api/reports/expired-reservations Lista wygasłych rezerwacji
-- \*\*GET/api/reports/screening-sales Statystyki sprzedaży barowej (wymaga ?screening_id=1)
+- POST/api/register Rejestracja nowego klienta
+- POST/api/login Logowanie (zwraca user_id i rolę)
+- GET/api/films Pobiera listę dostępnych filmów
+- POST/api/reservations Transakcja A: Rezerwacja. Sprawdza dostępność i blokuje miejsce.
+- POST/api/payments Transakcja B: Płatność. Używa FOR UPDATE do zmiany statusu.
+- POST/api/orders Transakcja C: Zamówienie barowe przypisane do seansu.WB.03
+- GET/api/reports/top-films Ranking finansowy filmów
+- GET/api/reports/expired-reservations Lista wygasłych rezerwacji
+- GET/api/reports/screening-sales Statystyki sprzedaży barowej (wymaga ?screening_id=1)
