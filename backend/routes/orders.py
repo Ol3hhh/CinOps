@@ -6,16 +6,39 @@ orders_bp = Blueprint('orders', __name__)
 @orders_bp.route("/api/orders", methods=["POST"])
 def submit_bar_order():
     """
-    Tworzy zamówienie w barze.
-    Body JSON:
-    {
-        "user_id": 1,
-        "screening_id": 1,
-        "items": [
-            {"product_id": 1, "quantity": 2},
-            {"product_id": 2, "quantity": 1}
-        ]
-    }
+    Tworzenie nowego zamówienia (Transakcja C)
+    ---
+    tags:
+      - Zamówienia
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            user_id:
+              type: integer
+              example: 1
+            screening_id:
+              type: integer
+              example: 1
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  product_id:
+                    type: integer
+                    example: 1
+                  quantity:
+                    type: integer
+                    example: 2
+    responses:
+      201:
+        description: Zamówienie utworzone
+      400:
+        description: Błąd danych
     """
     data = request.get_json()
     
