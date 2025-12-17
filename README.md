@@ -26,11 +26,6 @@ A backend **REST API** application supporting core cinema business processes: re
 ## 🐳 Containerization (Docker)
 The entire application is fully **containerized**, ensuring a consistent environment across different machines.
 
-* **Architecture:** We use `docker-compose` to orchestrate two primary services:
-  1. **Backend (Flask API):** Exposed on port `5000`.
-  2. **Database (PostgreSQL):** Running in an isolated container with a persistent data volume.
-* **Benefits:** This setup eliminates the need to install Python or PostgreSQL locally. The entire infrastructure is defined as code.
-
 ---
 
 ## 🚀 Setup Instructions
