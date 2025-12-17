@@ -23,6 +23,16 @@ A backend **REST API** application supporting core cinema business processes: re
 
 ---
 
+## 🐳 Containerization (Docker)
+The entire application is fully **containerized**, ensuring a consistent environment across different machines.
+
+* **Architecture:** We use `docker-compose` to orchestrate two primary services:
+  1. **Backend (Flask API):** Exposed on port `5000`.
+  2. **Database (PostgreSQL):** Running in an isolated container with a persistent data volume.
+* **Benefits:** This setup eliminates the need to install Python or PostgreSQL locally. The entire infrastructure is defined as code.
+
+---
+
 ## 🚀 Setup Instructions
 
 Required environment: **Docker**
@@ -75,5 +85,10 @@ The application handles 3 major business transactions and advanced reporting.
 * **GET /api/reports/screening-sales?screening_id=1** – bar sales statistics for a screening
 
 ---
+#### 🚨Common Status Codes:
 
-
+* **200 OK / 201 Created** – The request was successful
+* **400 Bad Request** – Validation error (e.g., missing fields, empty order, incorrect payment amount)
+* **404 Not Found** –  Resource not found (e.g., the requested movie or ticket does not exist)
+* **409 Conflict** – Business logic conflict
+* **500 Internal Server Error** – Unexpected server-side error
