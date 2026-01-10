@@ -13,8 +13,8 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const [apiError, setApiError] = useState('');
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -43,9 +43,9 @@ const LoginPage = () => {
         console.log("Saved to LocalStorage:", token, response.data.role); 
 
         if (response.data.role === 'Admin') {
-            window.location.href = '/reports'; 
+            navigate('/reports'); 
         } else {
-            window.location.href = '/movies';
+            navigate('/movies');
         }
 
       } catch (error) {
