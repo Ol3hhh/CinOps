@@ -2,7 +2,8 @@ from flask import Blueprint, jsonify
 from backend.db import get_db_connection
 from psycopg2.extras import RealDictCursor
 
-movies_bp = Blueprint('movies', __name__)
+movies_bp = Blueprint("movies", __name__)
+
 
 @movies_bp.route("/api/films", methods=["GET"])
 def get_all_films():

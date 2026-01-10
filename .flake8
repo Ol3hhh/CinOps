@@ -1,0 +1,10 @@
+[flake8]
+# Ignoruj folder frontendu, gita i środowiska wirtualnego
+exclude =
+    .git,
+    __pycache__,
+    venv,
+    frontend,
+    migrations
+# Ignoruj zbyt długie linie (czasami są konieczne)
+max-line-length = 120

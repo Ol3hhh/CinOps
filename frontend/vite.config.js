@@ -11,4 +11,9 @@ export default defineConfig({
       usePolling: true, // Ważne dla Linuxa/Dockera, żeby zmiany w kodzie odświeżały stronę
     },
   },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: './src/setupTests.js', // Opcjonalne, ale przydatne (zaraz stworzymy)
+  },
 })
