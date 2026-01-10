@@ -1,16 +1,17 @@
 from flask import Flask
 from flasgger import Swagger
+from flask_cors import CORS
 from backend.config import Config
+
 from backend.routes.auth import auth_bp
 from backend.routes.movies import movies_bp
 from backend.routes.orders import orders_bp
 from backend.routes.reports import reports_bp
-from flask_cors import CORS
-
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+    
     CORS(app)
     Swagger(app)
 
@@ -20,3 +21,5 @@ def create_app():
     app.register_blueprint(reports_bp)
 
     return app
+
+app = create_app()
