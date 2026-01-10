@@ -95,9 +95,7 @@ def pay_for_ticket():
         cur = conn.cursor(cursor_factory=RealDictCursor)
 
         # Rozpoczęcie transakcji
-        # (w psycopg2 domyślnie jesteśmy w transakcji, dopóki nie zrobimy commit)
 
-        # 1. Sprawdź status biletu i zablokuj wiersz (FOR UPDATE)
         cur.execute("SELECT status, price FROM Ticket WHERE id = %s FOR UPDATE", (ticket_id,))
         ticket = cur.fetchone()
 
