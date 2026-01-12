@@ -158,3 +158,27 @@ def pay_for_ticket():
         return jsonify({"error": str(e)}), 500
     finally:
         conn.close()
+
+
+@reservations_bp.route("/api/screenings/<int:screening_id>/seats", methods=["GET"])
+def get_taken_seats(screening_id):
+    """Zwraca listę ID miejsc, które są już zajęte dla danego seansu"""
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        # Pobieramy seat_id z tabeli Ticket, gdzie status to reserved/paid/occupied
+        query = """
+            SELECT seat_id 
+            FROM Ticket 
+            WHERE screening_id = %s 
+              AND status IN ('reserved', 'paid', 'occupied')
+        """
+        cur.execute(query, (screening_id,))
+        rows = cur.fetchall()
+        # Zwracamy płaską listę ID, np. [1, 5, 88]
+        taken_seats = [row["seat_id"] for row in rows]
+        return jsonify(taken_seats), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        conn.close()

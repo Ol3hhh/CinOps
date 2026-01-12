@@ -5,6 +5,9 @@ from backend.routes.auth import auth_bp
 from backend.routes.movies import movies_bp
 from backend.routes.orders import orders_bp
 from backend.routes.reports import reports_bp
+
+# 1. Importujemy rezerwacje
+from backend.routes.reservations import reservations_bp
 from flask_cors import CORS
 
 
@@ -18,5 +21,7 @@ def create_app():
     app.register_blueprint(movies_bp)
     app.register_blueprint(orders_bp)
     app.register_blueprint(reports_bp)
+    # 2. Rejestrujemy rezerwacje
+    app.register_blueprint(reservations_bp)
 
     return app

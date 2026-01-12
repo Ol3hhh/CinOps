@@ -112,3 +112,16 @@ def submit_bar_order():
             conn.close()
         print(f"DEBUG SQL Error: {e}")
         return jsonify({"error": str(e)}), 400
+
+
+@orders_bp.route("/api/products", methods=["GET"])
+def get_products():
+    """Pobiera listę dostępnych produktów gastronomicznych"""
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        cur.execute("SELECT id, name, price FROM Product")
+        products = cur.fetchall()
+        return jsonify(products), 200
+    finally:
+        conn.close()

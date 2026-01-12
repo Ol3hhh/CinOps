@@ -1,62 +1,61 @@
-import React, { useState } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Invalid email format')
-    .required('Email is required'),
-  password: Yup.string()
-    .required('Password is required'),
+    .email("Invalid email format")
+    .required("Email is required"),
+  password: Yup.string().required("Password is required"),
 });
 
 const LoginPage = () => {
-  const [apiError, setApiError] = useState('');
+  const [apiError, setApiError] = useState("");
   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
-      setApiError('');
-      
+      setApiError("");
+
       try {
         console.log("Sending login data:", values);
 
-        const response = await axios.post('http://localhost:5000/api/login', {
-            email: values.email,
-            password: values.password
+        const response = await axios.post("http://localhost:5000/api/login", {
+          email: values.email,
+          password: values.password,
         });
 
         console.log("Success! User role:", response.data.role);
 
-        const token = response.data.token || "demo-token-12345"; 
-        
-        localStorage.setItem('token', token);
-        localStorage.setItem('user_role', response.data.role); 
+        const token = response.data.token || "demo-token-12345";
 
-        console.log("Saved to LocalStorage:", token, response.data.role); 
+        localStorage.setItem("token", token);
+        localStorage.setItem("user_role", response.data.role);
+        localStorage.setItem("user_id", response.data.user_id);
 
-        if (response.data.role === 'Admin') {
-            navigate('/reports'); 
+        console.log("Saved to LocalStorage:", token, response.data.role);
+
+        if (response.data.role === "Admin") {
+          navigate("/reports");
         } else {
-            navigate('/movies');
+          navigate("/movies");
         }
-
       } catch (error) {
         console.error("Login error:", error);
-        
+
         if (error.response && error.response.data) {
-            setApiError(error.response.data.error || 'Login failed');
+          setApiError(error.response.data.error || "Login failed");
         } else if (error.message) {
-            setApiError(error.message);
+          setApiError(error.message);
         } else {
-            setApiError('Server is not responding');
+          setApiError("Server is not responding");
         }
       }
     },
@@ -64,9 +63,9 @@ const LoginPage = () => {
 
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div className="card p-4 shadow" style={{ width: '400px' }}>
+      <div className="card p-4 shadow" style={{ width: "400px" }}>
         <h2 className="text-center mb-4">Login</h2>
-        
+
         {apiError && <div className="alert alert-danger">{apiError}</div>}
 
         <form onSubmit={formik.handleSubmit}>
@@ -75,7 +74,9 @@ const LoginPage = () => {
             <input
               type="email"
               name="email"
-              className={`form-control ${formik.touched.email && formik.errors.email ? 'is-invalid' : ''}`}
+              className={`form-control ${
+                formik.touched.email && formik.errors.email ? "is-invalid" : ""
+              }`}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.email}
@@ -90,7 +91,11 @@ const LoginPage = () => {
             <input
               type="password"
               name="password"
-              className={`form-control ${formik.touched.password && formik.errors.password ? 'is-invalid' : ''}`}
+              className={`form-control ${
+                formik.touched.password && formik.errors.password
+                  ? "is-invalid"
+                  : ""
+              }`}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.password}
@@ -103,9 +108,9 @@ const LoginPage = () => {
           <button type="submit" className="btn btn-primary w-100 mb-3">
             Log in
           </button>
-          
+
           <div className="text-center">
-             Don't have an account? <Link to="/register">Register</Link>
+            Don't have an account? <Link to="/register">Register</Link>
           </div>
         </form>
       </div>
