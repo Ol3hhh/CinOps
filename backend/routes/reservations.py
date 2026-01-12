@@ -168,9 +168,9 @@ def get_taken_seats(screening_id):
         cur = conn.cursor(cursor_factory=RealDictCursor)
         # Pobieramy seat_id z tabeli Ticket, gdzie status to reserved/paid/occupied
         query = """
-            SELECT seat_id 
-            FROM Ticket 
-            WHERE screening_id = %s 
+            SELECT seat_id
+            FROM Ticket
+            WHERE screening_id = %s
               AND status IN ('reserved', 'paid', 'occupied')
         """
         cur.execute(query, (screening_id,))

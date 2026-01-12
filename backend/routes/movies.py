@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify
 from backend.db import get_db_connection
 from psycopg2.extras import RealDictCursor
 
@@ -74,10 +74,10 @@ def get_taken_seats(screening_id):
     try:
         cur.execute(
             """
-            UPDATE Ticket 
-            SET status = 'cancelled' 
-            WHERE screening_id = %s 
-              AND status = 'reserved' 
+            UPDATE Ticket
+            SET status = 'cancelled'
+            WHERE screening_id = %s
+              AND status = 'reserved'
               AND expiration_time < NOW()
         """,
             (screening_id,),
@@ -86,8 +86,8 @@ def get_taken_seats(screening_id):
 
         cur.execute(
             """
-            SELECT seat_id FROM Ticket 
-            WHERE screening_id = %s 
+            SELECT seat_id FROM Ticket
+            WHERE screening_id = %s
             AND status IN ('reserved', 'paid', 'occupied')
         """,
             (screening_id,),

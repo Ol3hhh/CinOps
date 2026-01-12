@@ -25,3 +25,6 @@ def create_app():
     app.register_blueprint(reservations_bp)
 
     return app
+
+
+app = create_app()
